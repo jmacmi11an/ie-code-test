@@ -97,42 +97,85 @@
 // create a report function
 // create a function that checks for valid input
 
+
 const status = {
-  'square': [],
-  'direction': '',
-  'place': false
-}
+  'square': [0, 0],
+  'directions': ['NORTH', 'EAST', 'SOUTH', 'WEST'],
+  'placed': false
+};
+
 const possibleDirections = {
   'NORTH' : [1, 0],
   'SOUTH' : [-1, 0],
   'EAST' : [0, 1],
   'WEST' : [0, -1]
-}
-let directions = ['NORTH', 'EAST', 'SOUTH', 'WEST']
+};
+
 
 
 const changeDirection = function (arr, changeCommand){
   if (changeCommand === 'LEFT') arr.unshift(arr.pop());
-  else if (changeCommand === 'RIGHT') arr.push(arr.shift());
-  else return 'there has been an error';
+  if (changeCommand === 'RIGHT') arr.push(arr.shift());
   return arr;
 }
 
 
-const isPositionLegal = function (position){
-  if (status.square[0] < 0 || status.square[0] > 4) return 'not on board';
-  if (status.square[1] < 0 || status.square[1] > 4) return 'not on board';
+const isPositionLegal = function (x, y){
+  if (((status.square[0] + x) < 0 || (status.square[0] + x) > 4) ||
+  ((status.square[1] + y) < 0 || (status.square[1] + y) > 4)){
+    return false;
+  }
+  return true;
 }
 
 
-const move = function (instruction){
-  if (instruction = 'REPORT'){
-    if (status.place){
-      return `${status.square[0]},${status.square[1]},${status.direction}`
+const instruction = function (input){
+  if (input === 'MOVE'){
+    let x = possibleDirections[status.directions[0]][0];
+    let y = possibleDirections[status.directions[0]][1];
+    if (isPositionLegal(x, y)){
+      status.square[0] += x;
+      status.square[1] += y;
+    } else {
+      console.log('not legal move')
     }
   }
-  return 'error, piece not on board'
+
+  if (input === 'LEFT' || input === 'RIGHT'){
+    status.directions = changeDirection(status.directions, input);
+    // console.log(status.directions[0])
+  }
+
+  if (input === 'REPORT'){
+    if (status.placed){
+      return `${status.square[0]},${status.square[1]},${status.directions[0]}`
+    }
+    return "error, piece hasn't been placed"
+  }
 }
 
-console.log(move('REPORT'))
-console.log(move('hi'))
+
+
+
+
+
+
+
+console.log(instruction('MOVE'), status.square)
+console.log(instruction('MOVE'), status.square)
+console.log(instruction('REPORT'), '------report')
+console.log(instruction('LEFT'), status.square)
+console.log(instruction('MOVE'), status.square)
+console.log(instruction('MOVE'), status.square)
+console.log(instruction('REPORT'), '------report')
+console.log(instruction('RIGHT'), status.square)
+console.log(instruction('RIGHT'), status.square)
+console.log(instruction('MOVE'), status.square)
+console.log(instruction('REPORT'), '------report')
+console.log(instruction('MOVE'), status.square)
+console.log(instruction('MOVE'), status.square)
+console.log(instruction('MOVE'), status.square)
+console.log(instruction('LEFT'), status.square)
+console.log(instruction('MOVE'), status.square)
+console.log(instruction('MOVE'), status.square)
+console.log(instruction('REPORT'), '------report')
