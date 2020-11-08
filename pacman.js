@@ -51,7 +51,7 @@ const instruction = function (input){
   // For a PLACE command
   if (input.includes('PLACE')){
     status.placed = true;
-    status.square = [parseInt(input[6]), parseInt(input[8])]    //this assumes correct input
+    status.square = [parseInt(input[6]), parseInt(input[8])]    //hardcoded because it assumes correct input
     status.directions = startDirection(input.slice(10), status.directions)
   }
 
