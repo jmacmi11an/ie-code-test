@@ -1,13 +1,3 @@
-// create an object that holds the piece status
-  // has it been placed?
-  // what square is it on?
-  // what direction is it facing?
-// create a direction object that holds N, S, E, W
-// create a function that shifts or unshifts the directions array (LEFT, RIGHT)
-// create a move function
-// create a report function
-
-
 const status = {
   'square': [0, 0],
   'directions': ['NORTH', 'EAST', 'SOUTH', 'WEST'],
