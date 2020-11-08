@@ -112,6 +112,12 @@ const possibleDirections = {
 };
 
 
+const startDirection = function(direction, arr){
+  while (direction !== arr[0]){
+    arr.unshift(arr.pop())
+  }
+  return arr
+}
 
 const changeDirection = function (arr, changeCommand){
   if (changeCommand === 'LEFT') arr.unshift(arr.pop());
@@ -120,7 +126,7 @@ const changeDirection = function (arr, changeCommand){
 }
 
 
-const isPositionLegal = function (x, y){
+const isPositionLegal = function (x = 0, y = 0){
   if (((status.square[0] + x) < 0 || (status.square[0] + x) > 4) ||
   ((status.square[1] + y) < 0 || (status.square[1] + y) > 4)){
     return false;
@@ -130,6 +136,12 @@ const isPositionLegal = function (x, y){
 
 
 const instruction = function (input){
+  if (input.includes('PLACE')){
+    status.placed = true;
+    status.square = [parseInt(input[6]), parseInt(input[8])]    //this assumes correct input
+    status.directions = startDirection(input.slice(10), status.directions)
+  }
+
   if (input === 'MOVE'){
     let x = possibleDirections[status.directions[0]][0];
     let y = possibleDirections[status.directions[0]][1];
@@ -161,21 +173,25 @@ const instruction = function (input){
 
 
 
-console.log(instruction('MOVE'), status.square)
-console.log(instruction('MOVE'), status.square)
+
+console.log(instruction('MOVE'), status.square, '-----------move')
+console.log(instruction('MOVE'), status.square, '-----------move')
 console.log(instruction('REPORT'), '------report')
-console.log(instruction('LEFT'), status.square)
-console.log(instruction('MOVE'), status.square)
-console.log(instruction('MOVE'), status.square)
+console.log(instruction('PLACE 5,5,NORTH'))
 console.log(instruction('REPORT'), '------report')
-console.log(instruction('RIGHT'), status.square)
-console.log(instruction('RIGHT'), status.square)
-console.log(instruction('MOVE'), status.square)
+console.log(instruction('MOVE'), status.square, '-----------move')
+console.log(instruction('MOVE'), status.square, '-----------move')
 console.log(instruction('REPORT'), '------report')
-console.log(instruction('MOVE'), status.square)
-console.log(instruction('MOVE'), status.square)
-console.log(instruction('MOVE'), status.square)
-console.log(instruction('LEFT'), status.square)
-console.log(instruction('MOVE'), status.square)
-console.log(instruction('MOVE'), status.square)
+console.log(instruction('LEFT'), status.square, '-----------left')
+console.log(instruction('MOVE'), status.square, '-----------move')
+console.log(instruction('PLACE 2,2,EAST'))
+console.log(instruction('MOVE'), status.square, '-----------move')
 console.log(instruction('REPORT'), '------report')
+console.log(instruction('RIGHT'), status.square, '-----------right')
+console.log(instruction('RIGHT'), status.square, '-----------right')
+console.log(instruction('MOVE'), status.square, '-----------move')
+console.log(instruction('REPORT'), '------report')
+console.log(instruction('MOVE'), status.square, '-----------move')
+console.log(instruction('MOVE'), status.square, '-----------move')
+console.log(instruction('MOVE'), status.square, '-----------move')
+console.log(instruction('LEFT'), status.square, '-----------left')
