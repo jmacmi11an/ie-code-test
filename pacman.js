@@ -103,12 +103,12 @@ const status = {
   'place': false
 }
 const possibleDirections = {
-  'north' : [1, 0],
-  'south' : [-1, 0],
-  'east' : [0, 1],
-  'west' : [0, -1]
+  'NORTH' : [1, 0],
+  'SOUTH' : [-1, 0],
+  'EAST' : [0, 1],
+  'WEST' : [0, -1]
 }
-let directions = ['north', 'east', 'south', 'west']
+let directions = ['NORTH', 'EAST', 'SOUTH', 'WEST']
 
 
 const changeDirection = function (arr, changeCommand){
@@ -119,7 +119,7 @@ const changeDirection = function (arr, changeCommand){
 }
 
 
-const isMoveLegal = function (position, move){
+const isPositionLegal = function (position){
   if (status.square[0] < 0 || status.square[0] > 4) return 'not on board';
   if (status.square[1] < 0 || status.square[1] > 4) return 'not on board';
 }
@@ -135,4 +135,4 @@ const move = function (instruction){
 }
 
 console.log(move('REPORT'))
-console.log(move('fuck'))
+console.log(move('hi'))
